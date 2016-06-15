@@ -25,10 +25,11 @@ provisioner:
     vagrant:
       this_key_exists_so_we_have_a_vagrant_key: true
     omnibus:
-      build_user:          vagrant
-      build_user_group:    vagrant
+      build_user: vagrant
+      build_user_group: vagrant
       build_user_password: vagrant
-  chef_omnibus_install_options: -P angrychef
+  product_name: angrychef
+  product_version: latest
   chef_omnibus_root: /opt/angrychef
 
 platforms:
@@ -93,7 +94,9 @@ platforms:
       # gets cranky if the mounted Chef source folder is a symlink. This
       # mounts at `C:\vagrant\code` and the Chef source folder is available
       # at `C:\vagrant\code\chef`
-      - ['../..', '/vagrant/code']
+      - ['..', '/vagrant/code/chef']
+      - ['../../omnibus', '/vagrant/code/omnibus']
+      - ['../../omnibus-software', '/vagrant/code/omnibus-software']
     provisioner:
       attributes:
         omnibus:
