@@ -31,5 +31,10 @@ describe "knife node run list set", :workstation do
     it "sets the run list" do
       knife("node run list set cons recipe[bar]").should_succeed /run_list:\s*recipe\[bar\]\n/m
     end
+
+    it "with no role or recipe" do
+      knife("node run list set cons").should_fail stderr: "FATAL: You must supply both a node name and a run list.\n",
+                                                  stdout: /^USAGE: knife node run_list set NODE ENTRIES \(options\)/m
+    end
   end
 end
